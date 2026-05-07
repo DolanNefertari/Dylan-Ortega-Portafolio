@@ -1,0 +1,135 @@
+<div class="admin-container">
+  <div class="admin-header">
+    <h2>Panel de Administración - Denuncias</h2>
+    <div class="header-actions">
+      <button mat-raised-button color="accent" (click)="exportToCSV()" class="export-btn">
+        <mat-icon>download</mat-icon>
+        <span class="btn-text">Exportar a Excel</span>
+      </button>
+      <button mat-stroked-button (click)="logout()" class="logout-btn">
+        <mat-icon>exit_to_app</mat-icon>
+        <span class="btn-text">Cerrar sesión</span>
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="loading-container">
+    <mat-spinner diameter="40"></mat-spinner>
+    <p>Cargando denuncias...</p>
+  </div>
+
+  <div *ngIf="error" class="error-message">
+    <mat-icon>error</mat-icon>
+    <p>{{ error }}</p>
+    <button mat-raised-button (click)="loadComplaints()">Reintentar</button>
+  </div>
+
+  <div *ngIf="!loading && !error && complaints.length > 0" class="complaints-list">
+    <div *ngFor="let item of complaints" class="complaint-card" [class]="getStatusClass(item.status)">
+  
+      <div class="card-header">
+        <div class="header-left">
+          <mat-icon class="date-icon">schedule</mat-icon>
+          <span class="date">{{ item.createdAt | date:'dd/MM/yyyy HH:mm' }}</span>
+        </div>
+      
+        <div class="header-right-group">
+          <div *ngIf="editingId !== item.id" class="status-desktop">
+            <span class="status-badge" [class]="getStatusClass(item.status)">
+              {{ getStatusLabel(item.status) }}
+            </span>
+            <button mat-icon-button (click)="startEdit(item)" class="edit-icon-btn" title="Editar estado">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </div>
+      
+          <div *ngIf="editingId === item.id" class="editing-desktop">
+            <mat-form-field appearance="outline" class="status-select-small" [class]="getStatusClassForSelect(item.status)">
+              <mat-select [(ngModel)]="tempStatus">
+                <mat-option *ngFor="let opt of statusOptions" [value]="opt.value">
+                  {{ opt.label }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <button mat-icon-button color="primary" (click)="saveStatus(item)" class="action-icon" title="Guardar">
+              <mat-icon>check</mat-icon>
+            </button>
+            <button mat-icon-button (click)="cancelEdit()" class="action-icon" title="Cancelar">
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+      <h3 class="card-subject">{{ item.subject }}</h3>
+
+      <p class="card-message">{{ item.message }}</p>
+
+      <div class="card-separator"></div>
+
+      <div class="card-footer">
+        <div *ngIf="!item.isAnonymous" class="sender-info">
+          <mat-icon>person</mat-icon>
+          <span class="sender-name">{{ item.name }}</span>
+          <mat-icon>email</mat-icon>
+          <a [href]="'mailto:' + item.email" class="sender-email">{{ item.email }}</a>
+        </div>
+        <div *ngIf="item.isAnonymous" class="sender-info anonymous">
+          <mat-icon>visibility_off</mat-icon>
+          <span>Denuncia anónima</span>
+        </div>
+<div class="complaint-details">
+  <div class="detail-row" *ngIf="item.relationship">
+    <mat-icon>business</mat-icon>
+    <span><strong>Relación:</strong> {{ item.relationship }}</span>
+  </div>
+  <div class="detail-row" *ngIf="item.location">
+    <mat-icon>place</mat-icon>
+    <span><strong>Lugar:</strong> {{ item.location }}</span>
+  </div>
+  <div class="detail-row" *ngIf="item.incidentDate">
+    <mat-icon>event</mat-icon>
+    <span><strong>Fecha del incidente:</strong> {{ item.incidentDate | date:'dd/MM/yyyy' }}</span>
+  </div>
+  <div class="detail-row" *ngIf="item.accused">
+    <mat-icon>person_outline</mat-icon>
+    <span><strong>Denunciado:</strong> {{ item.accused }}</span>
+  </div>
+</div>
+    
+      <div *ngIf="editingId !== item.id" class="status-mobile">
+        <span class="status-label">Estado actual:</span>
+        <span class="status-badge" [class]="getStatusClass(item.status)">
+          {{ getStatusLabel(item.status) }}
+        </span>
+        <button mat-icon-button (click)="startEdit(item)" class="edit-icon-btn" title="Editar estado">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </div>
+    
+<div *ngIf="editingId === item.id" class="editing-mobile">
+  <div class="editing-mobile-row">
+    <mat-form-field appearance="outline" class="status-select" [class]="getStatusClassForSelect(item.status)">
+      <mat-select [(ngModel)]="tempStatus">
+        <mat-option *ngFor="let opt of statusOptions" [value]="opt.value">
+          {{ opt.label }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div class="edit-actions">
+      <button mat-icon-button color="primary" (click)="saveStatus(item)" title="Guardar">
+        <mat-icon>check</mat-icon>
+      </button>
+      <button mat-icon-button (click)="cancelEdit()" title="Cancelar">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>
+    </div>
+  </div>
+
+  <div *ngIf="!loading && !error && complaints.length === 0" class="empty-state">
+    <mat-icon>inbox</mat-icon>
+    <p>No hay denuncias registradas</p>
+  </div>
+</div>

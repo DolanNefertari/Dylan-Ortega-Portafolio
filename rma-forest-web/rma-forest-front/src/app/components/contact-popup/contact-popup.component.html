@@ -1,0 +1,43 @@
+<div class="popup-overlay" *ngIf="visible" (click)="close()">
+  <div class="popup-container" (click)="$event.stopPropagation()">
+    <button class="popup-close" (click)="close()">
+      <mat-icon>close</mat-icon>
+    </button>
+
+    <div class="popup-header">
+      <mat-icon class="header-icon">mail_outline</mat-icon>
+      <h2>Contáctanos</h2>
+      <p>Cuéntanos tu proyecto y te ayudaremos a hacerlo realidad</p>
+    </div>
+
+    <form (ngSubmit)="onSubmit()" class="popup-form">
+      <mat-form-field appearance="outline">
+        <mat-label>Nombre Completo</mat-label>
+        <input matInput [(ngModel)]="form.nombre" name="nombre" required>
+        <mat-icon matSuffix>person</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" [(ngModel)]="form.email" name="email" required>
+        <mat-icon matSuffix>email</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Mensaje</mat-label>
+        <textarea matInput rows="4" [(ngModel)]="form.mensaje" name="mensaje" resize="none"></textarea>
+        <mat-icon matSuffix>chat</mat-icon>
+      </mat-form-field>
+
+      <mat-checkbox [(ngModel)]="form.privacy" name="privacy" required>
+        He leído la <a href="#" class="privacy-link">política de privacidad</a>
+      </mat-checkbox>
+
+      <button mat-raised-button color="primary" type="submit" [disabled]="loading">
+        <mat-icon *ngIf="!loading">send</mat-icon>
+        <span *ngIf="!loading">Enviar mensaje</span>
+        <span *ngIf="loading">Enviando...</span>
+      </button>
+    </form>
+  </div>
+</div>

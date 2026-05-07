@@ -1,0 +1,16 @@
+# Front
+rma-forest-front/node_modules/
+rma-forest-front/dist/
+rma-forest-front/.angular/
+
+# Back
+rma-forest-back/node_modules/
+rma-forest-back/dist/
+rma-forest-back/build/
+
+# General
+.vscode/
+.idea/
+*.log
+.env
+node_modules/

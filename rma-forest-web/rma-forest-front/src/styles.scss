@@ -1,0 +1,152 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;500;600;700&display=swap');
+
+$font-heading: 'Montserrat', sans-serif;
+$font-body: 'Open Sans', sans-serif;
+
+$text-xs: 0.75rem;   // 12px
+$text-sm: 0.875rem;  // 14px
+$text-base: 1rem;    // 16px
+$text-lg: 1.125rem;  // 18px
+$text-xl: 1.25rem;   // 20px
+$text-2xl: 1.5rem;   // 24px
+$text-3xl: 1.875rem; // 30px
+$text-4xl: 2.25rem;  // 36px
+$text-5xl: 3rem;     // 48px
+
+// Pesos
+$font-light: 300;
+$font-regular: 400;
+$font-medium: 500;
+$font-semibold: 600;
+$font-bold: 700;
+$font-extrabold: 800;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: $font-body;
+  font-weight: $font-regular;
+  font-size: $text-base;
+  line-height: 1.6;
+  color: #1d3439;
+  background: #fbfbfb;
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-heading;
+  font-weight: $font-bold;
+  line-height: 1.3;
+  color: #1d3439;
+}
+
+
+h1 { font-size: $text-5xl; }
+h2 { font-size: $text-4xl; }
+h3 { font-size: $text-2xl; }
+h4 { font-size: $text-xl; }
+h5 { font-size: $text-lg; }
+h6 { font-size: $text-base; }
+
+
+p {
+  font-family: $font-body;
+  font-weight: $font-regular;
+  font-size: $text-base;
+  line-height: 1.6;
+  color: #1d3439;
+}
+
+
+a {
+  font-family: $font-body;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+
+button, .button, .btn {
+  font-family: $font-heading;
+  font-weight: $font-semibold;
+  letter-spacing: 0.5px;
+}
+
+
+small, .tag, .badge, .caption, .section-tag, .about-tag {
+  font-family: $font-heading;
+  font-weight: $font-medium;
+  font-size: $text-xs;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+
+.card, .mision-card, .complaint-card {
+  p {
+    font-size: $text-sm;
+    color: #555;
+  }
+
+  h3 {
+    font-size: $text-xl;
+    font-weight: $font-semibold;
+  }
+}
+
+.text-italic {
+  font-style: italic;
+}
+
+.text-bold {
+  font-weight: $font-bold;
+}
+
+.text-semibold {
+  font-weight: $font-semibold;
+}
+
+.text-light {
+  font-weight: $font-light;
+}
+
+.text-muted {
+  color: #666;
+}
+
+.text-primary {
+  color: #2e7d32;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+.grecaptcha-badge {
+  bottom: 90px !important;
+  transform: scale(0.85); 
+  opacity: 0.9; 
+}
+
+@media (max-width: 768px) {
+  .grecaptcha-badge {
+    bottom: 100px !important;
+  }
+}

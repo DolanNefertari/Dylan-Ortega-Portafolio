@@ -1,0 +1,541 @@
+// ==========================================
+// VARIABLES DEL COMPONENTE
+// ==========================================
+$primary: #2e7d32;
+$primary-dark: #1b5e20;
+$primary-light: #e8f5e9;
+$text-muted: #666;
+$white: #ffffff;
+$gray-light: #f5f5f5;
+
+// ==========================================
+// COMPLAINTS CONTAINER
+// ==========================================
+.complaints-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, $gray-light 0%, #e8f5e9 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem 1.5rem;
+}
+
+// ==========================================
+// LOGO FLOTANTE (PC) Y MARCA DE AGUA (MÓVIL)
+// ==========================================
+
+// Logo flotante en PC (esquina superior izquierda)
+.watermark-logo {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
+  opacity: 0.15;
+  transition: opacity 0.3s ease;
+  
+  img {
+    width: 150px;
+    height: auto;
+  }
+  
+  &:hover {
+    opacity: 0.3;
+  }
+}
+
+// Marca de agua en móvil (solo visible en pantallas pequeñas)
+.mobile-watermark {
+  display: none;
+}
+
+// Ocultar logo flotante en móvil, mostrar marca de agua
+@media (max-width: 768px) {
+  .desktop-logo {
+    display: none;
+  }
+  
+  .mobile-watermark {
+    display: block;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 80px;
+    height: 80px;
+    background: url('../../assets/logos/logo-icono.png') no-repeat center;
+    background-size: contain;
+    opacity: 0.1;
+    z-index: 10;
+    pointer-events: none;
+  }
+}
+
+// Para pantallas muy pequeñas, ajustar tamaño
+@media (max-width: 480px) {
+  .mobile-watermark {
+    width: 60px;
+    height: 60px;
+    bottom: 15px;
+    right: 15px;
+  }
+}
+
+.complaints-card {
+  max-width: 650px;
+  width: 100%;
+  background: $white;
+  border-radius: 32px;
+  padding: 2.5rem;
+  box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.1);
+
+  .complaints-header {
+    text-align: center;
+    margin-bottom: 2rem;
+
+    .header-icon {
+      font-size: 3rem;
+      width: 3rem;
+      height: 3rem;
+      color: $primary;
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      // ❌ Eliminado: font-family (ya viene de global)
+    }
+
+    p {
+      color: $text-muted;
+      font-size: 0.9rem;
+      // ❌ Eliminado: font-family (ya viene de global)
+    }
+  }
+
+  .complaints-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+
+    mat-form-field {
+      width: 100%;
+    }
+
+    .form-actions {
+      display: flex;
+      justify-content: center;
+      margin-top: 0.5rem;
+
+      button {
+        padding: 0.75rem 2rem;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background-color: $primary;
+        color: $white;
+        border-radius: 40px;
+        // ❌ Eliminado: font-family (ya viene de global)
+
+        &:hover:not(:disabled) {
+          background-color: $primary-dark;
+        }
+      }
+    }
+  }
+}
+
+// ==========================================
+// RESPONSIVE COMPLAINTS (MÓVIL Y TABLET)
+// ==========================================
+
+// Tablet (entre 769px y 1024px)
+@media (min-width: 769px) and (max-width: 1024px) {
+  .complaints-card {
+    max-width: 550px;
+    padding: 2rem;
+  }
+}
+
+// Móvil (hasta 768px)
+@media (max-width: 768px) {
+  .complaints-container {
+    padding: 4rem 1rem;
+    min-height: auto;
+  }
+
+  .complaints-card {
+    padding: 1.5rem;
+    border-radius: 24px;
+  }
+
+  .complaints-header {
+    margin-bottom: 1.5rem;
+
+    .header-icon {
+      font-size: 2.5rem;
+      width: 2.5rem;
+      height: 2.5rem;
+    }
+
+    h2 {
+      font-size: 1.4rem;
+    }
+
+    p {
+      font-size: 0.85rem;
+    }
+  }
+
+  .complaints-form {
+    gap: 1rem;
+
+    // Reducir tamaño de los campos
+    ::ng-deep .mat-mdc-form-field {
+      .mat-mdc-text-field-wrapper {
+        padding: 0 0.75rem;
+      }
+      
+      .mat-mdc-form-field-infix {
+        padding: 0.75rem 0;
+      }
+    }
+
+    // Checkbox más compacto
+    ::ng-deep .mat-mdc-checkbox {
+      .mdc-form-field {
+        font-size: 0.85rem;
+      }
+    }
+
+    .form-actions button {
+      padding: 0.6rem 1.5rem;
+      font-size: 0.9rem;
+      width: 100%;
+      justify-content: center;
+    }
+  }
+}
+
+// Pantallas muy pequeñas (menos de 480px)
+@media (max-width: 480px) {
+  .complaints-card {
+    padding: 1.25rem;
+  }
+
+  .complaints-header {
+    h2 {
+      font-size: 1.2rem;
+    }
+
+    p {
+      font-size: 0.8rem;
+    }
+  }
+
+  .complaints-form {
+    gap: 0.75rem;
+
+    ::ng-deep .mat-mdc-form-field {
+      .mat-mdc-text-field-wrapper {
+        padding: 0 0.5rem;
+      }
+      
+      .mat-mdc-form-field-infix {
+        padding: 0.6rem 0;
+      }
+    }
+
+    .form-actions button {
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+    }
+  }
+}
+
+@media (min-width: 769px) {
+  .complaints-form {
+    ::ng-deep .mat-mdc-text-field-wrapper {
+      padding: 0 1rem !important;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .complaints-form .form-actions button {
+    transition: all 0.2s ease;
+    
+    &:active {
+      transform: scale(0.98);
+    }
+  }
+}
+
+// ==========================================
+// ESTILOS PARA SELECTS (como en admin panel)
+// ==========================================
+
+.complaints-form {
+  // Estilos para el select cerrado
+  ::ng-deep .mat-mdc-select-trigger {
+    height: auto !important;
+    padding: 0 1rem;
+    display: flex;
+    align-items: center;
+  }
+
+  ::ng-deep .mat-mdc-select-value-text {
+    font-size: 0.9rem;
+    color: $primary-dark;
+  }
+
+  ::ng-deep .mat-mdc-select-arrow {
+    color: $text-muted;
+  }
+
+  ::ng-deep .mat-mdc-select-placeholder {
+    color: $text-muted !important;
+    opacity: 0.7 !important;
+    font-size: 0.9rem !important;
+  }
+
+  // Ocultar subscript (espacio inferior)
+  ::ng-deep .mat-mdc-form-field-subscript-wrapper {
+    display: none !important;
+  }
+
+  ::ng-deep .mat-mdc-form-field-wrapper {
+    padding-bottom: 0 !important;
+  }
+}
+
+// ==========================================
+// ESTILOS PARA EL PANEL DE OPCIONES (dropdown)
+// ==========================================
+::ng-deep .mat-mdc-select-panel {
+  border-radius: 16px !important;
+  margin-top: 8px !important;
+  background-color: white !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15) !important;
+  
+  .mat-mdc-option {
+    font-size: 0.9rem;
+    font-weight: 500;
+    background-color: white !important;
+    color: $primary-dark;
+    transition: all 0.2s ease;
+    
+    &:hover {
+      background-color: $primary-light !important;
+      color: $primary-dark;
+    }
+    
+    // Opción seleccionada
+    &.mat-mdc-option-active {
+      background-color: $primary !important;
+      color: white !important;
+    }
+  }
+}
+
+// ==========================================
+// ALINEACIÓN DE ICONOS EN FORMULARIOS
+// ==========================================
+
+.complaints-form {
+  // Forzar misma altura en todos los campos
+  ::ng-deep .mat-mdc-form-field {
+    .mat-mdc-text-field-wrapper {
+      display: flex;
+      align-items: center;
+    }
+    
+    // Asegurar que todos los sufijos tengan el mismo ancho
+    .mat-mdc-form-field-suffix {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 32px;  // Ancho fijo para todos los íconos
+      
+      .mat-icon {
+        font-size: 20px;
+        width: 20px;
+        height: 20px;
+        color: $text-muted;
+      }
+    }
+    
+    // Ajustar padding derecho cuando hay ícono
+    .mat-mdc-form-field-infix {
+      padding-right: 8px;
+    }
+  }
+  
+  // Estilo especial para campos date (type="date")
+  ::ng-deep input[type="date"] {
+    &::-webkit-calendar-picker-indicator {
+      opacity: 0.6;
+      padding: 0;
+      margin: 0;
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+  
+  // Alinear el ícono del select (flecha nativa)
+  ::ng-deep .mat-mdc-select-arrow-wrapper {
+    min-width: 32px;
+    display: flex;
+    justify-content: flex-end;
+    
+    .mat-mdc-select-arrow {
+      width: 20px;
+      height: 20px;
+    }
+  }
+  
+  // Para campos con ícono y select
+  ::ng-deep .mat-mdc-form-field-type-mat-select {
+    .mat-mdc-form-field-suffix {
+      display: none; // Oculta íconos extra en selects
+    }
+  }
+  
+  // Asegurar que todos los campos tengan el mismo padding
+  ::ng-deep .mat-mdc-text-field-wrapper {
+    padding: 0 12px !important;
+  }
+  
+  // Ajustar altura consistente
+  ::ng-deep .mat-mdc-form-field-infix {
+    padding: 12px 0 !important;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+  }
+  
+  // Para textarea, mantener altura diferente
+  ::ng-deep textarea + .mat-mdc-form-field-infix {
+    min-height: auto;
+  }
+}
+// ==========================================
+// ESTILOS PARA EL CALENDARIO (Datepicker)
+// ==========================================
+
+::ng-deep .mat-datepicker-content {
+  background-color: white !important;
+  border-radius: 16px !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important;
+  
+  // Fondo del calendario y header
+  .mat-calendar {
+    background-color: white !important;
+    border-radius: 16px !important;
+  }
+  
+  // Fondo del header del calendario
+  .mat-calendar-header {
+    background-color: white !important;
+    padding: 12px 0 !important;
+  }
+  
+  // Fondo del body del calendario
+  .mat-calendar-body {
+    background-color: white !important;
+  }
+  
+  // Tabla de días
+  .mat-calendar-table {
+    background-color: white !important;
+    
+    th {
+      color: #2e7d32 !important;
+      font-weight: 500 !important;
+    }
+  }
+  
+  // Celdas de los días
+  .mat-calendar-body-cell {
+    .mat-calendar-body-cell-content {
+      color: #1d3439 !important;
+      
+      &:hover {
+        background-color: #e8f5e9 !important;
+      }
+    }
+    
+    // Día seleccionado
+    &.mat-calendar-body-selected {
+      .mat-calendar-body-cell-content {
+        background-color: #2e7d32 !important;
+        color: white !important;
+      }
+    }
+    
+    // Día actual (hoy)
+    &.mat-calendar-body-today {
+      .mat-calendar-body-cell-content {
+        border-color: #2e7d32 !important;
+      }
+    }
+    
+    // Días deshabilitados (futuros)
+    &.mat-calendar-body-disabled {
+      .mat-calendar-body-cell-content {
+        color: #ccc !important;
+      }
+    }
+  }
+  
+  // Botones de navegación (mes anterior/siguiente)
+  .mat-calendar-previous-button,
+  .mat-calendar-next-button {
+    background-color: transparent !important;
+    color: #2e7d32 !important;
+    
+    &:hover {
+      background-color: #e8f5e9 !important;
+    }
+  }
+  
+  // Selector de mes/año
+  .mat-calendar-period-button {
+    color: #1d3439 !important;
+    
+    &:hover {
+      background-color: #e8f5e9 !important;
+    }
+  }
+  
+  // Tabla de meses/años en la vista de selección
+  .mat-calendar-body-active {
+    .mat-calendar-body-cell-content {
+      background-color: #2e7d32 !important;
+      color: white !important;
+    }
+  }
+}
+
+// ==========================================
+// ESTILO ESPECÍFICO PARA EL CAMPO FECHA
+// ==========================================
+.complaints-form {
+  ::ng-deep .mat-mdc-form-field:has(input[type="date"]) {
+    .mat-mdc-form-field-suffix {
+      // No mostrar ícono adicional (usar el nativo del date picker)
+      display: none;
+    }
+    
+    // Ajustar posición del calendario nativo
+    input[type="date"] {
+      padding-right: 4px;
+    }
+  }
+}

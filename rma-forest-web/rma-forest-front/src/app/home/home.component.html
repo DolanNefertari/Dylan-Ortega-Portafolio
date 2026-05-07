@@ -1,0 +1,236 @@
+<mat-toolbar class="navbar" [class.scrolled]="scrolled" [class.menu-open]="menuOpen">
+  <div class="spacer-left" [class.hide-on-scroll]="scrolled"></div>
+  
+  <div class="navbar__brand">
+    <a routerLink="/">
+      <img class="logo" src="assets/logos/logo-horizontal.png" alt="RMA Forest">
+    </a>
+  </div>  
+  
+  <div class="spacer-between"></div>
+
+  <button class="hamburger-btn" (click)="toggleMenu()" aria-label="Menú">
+    <span class="hamburger-line"></span>
+    <span class="hamburger-line"></span>
+    <span class="hamburger-line"></span>
+  </button>
+
+  <div class="mobile-menu-overlay" [class.active]="menuOpen" (click)="closeMenu()"></div>
+  <div class="mobile-menu" [class.active]="menuOpen">
+    <div class="mobile-menu-header">
+      <button class="close-menu-btn" (click)="closeMenu()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <nav class="mobile-menu-links">
+      <a mat-button href="#about" (click)="closeMenu()">Nosotros</a>
+      <a mat-button href="#projects" (click)="closeMenu()">Proyectos</a>
+      <a mat-button routerLink="/policy" target="_blank" (click)="closeMenu()">Política</a>
+      <a mat-button routerLink="/compliance" target="_blank" (click)="closeMenu()">Canal de Denuncias</a>
+    </nav>
+  </div>
+
+  <nav class="navbar__links desktop-links" aria-label="Navegación principal">
+    <a mat-button href="#about">Nosotros</a>
+    <a mat-button href="#projects">Proyectos</a>
+    <a mat-button routerLink="/policy" target="_blank">Política</a>
+    <a mat-button routerLink="/compliance" target="_blank">Canal de Denuncias</a> 
+  </nav>
+
+  <div class="spacer-right"></div>
+</mat-toolbar>
+
+<section class="hero">
+  <div class="hero-content">
+    <h1>Consultoría Ambiental y Forestal para un Futuro Sustentable</h1>
+    <p>
+      Apoyamos a la Industria, inmobiliarias, empresas eléctricas y gobiernos
+      locales con soluciones comprometidas con el medio ambiente.
+    </p>
+  </div>
+</section>
+
+<section id="about" class="about" (mouseenter)="pauseAutoRotate()" (mouseleave)="resumeAutoRotate()">
+  <div class="about-container">
+    <div class="about-text">
+      <span class="section-tag">Nosotros</span>
+      <h2>Consultoría Ambiental y Forestal para Sostenibilidad Integral</h2>
+      <p class="about-description">
+        <strong>RMA Forest</strong> es una empresa chilena especializada en consultoría ambiental forestal y agrícola. Contamos con un equipo técnico multidisciplinario con experiencia en evaluaciones de impacto ambiental, gestión forestal urbana y rural, y planes de manejo sustentable.
+      </p>
+      <div class="about-features">
+        <div 
+          class="feature" 
+          *ngFor="let feature of features" 
+          (click)="selectFeature(feature)"
+          [class.active]="selectedFeature.id === feature.id">
+          <mat-icon>{{ feature.icono }}</mat-icon>
+          <span>{{ feature.titulo }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-card" [ngStyle]="{'background-image': selectedFeature.fondo ? 'url(' + selectedFeature.fondo + ')' : 'none'}" [class.has-image]="selectedFeature.fondo">
+      <div class="card-overlay"></div>
+      <div class="card-content">
+        <mat-icon class="card-icon">{{ selectedFeature.icono }}</mat-icon>
+        <h3>{{ selectedFeature.titulo }}</h3>
+        <p>{{ selectedFeature.descripcion }}</p>
+        <div #statNumbers>
+          <ul class="card-stats" *ngIf="selectedFeature.stats">
+            <li *ngFor="let stat of selectedFeature.stats" class="stat-item">
+              <strong class="stat-number" [attr.data-target]="stat.valor" [attr.data-format]="stat.formato">0</strong>
+              <span>{{ stat.label }}</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="mision" class="mision">
+  <div class="container">
+    <span class="section-tag">Nuestra Esencia</span>
+    <h2 class="section-title">Crecimiento con respeto al medio ambiente</h2>
+    <p class="section-subtitle">
+      En RMA Forest ofrecemos soluciones técnicas y personalizadas para enfrentar los desafíos ambientales y forestales de distintos sectores productivos y públicos. Nuestro equipo combina experiencia en terreno, conocimiento normativo y una fuerte vocación por la sustentabilidad.
+    </p>
+
+    <div class="mision-grid">
+      <div class="mision-card" *ngFor="let item of misionItems">
+        <div class="card-icon">
+          <mat-icon>{{ item.icono }}</mat-icon>
+        </div>
+        <h3>{{ item.titulo }}</h3>
+        <p>{{ item.descripcion }}</p>
+      </div>
+    </div>
+
+    <div class="mision-quote">
+      <mat-icon class="quote-icon">format_quote</mat-icon>
+      <p>“La sustentabilidad no es una meta, es el camino que recorremos con cada proyecto”</p>
+      <span>— Equipo RMA Forest</span>
+    </div>
+  </div>
+</section>
+<section id="projects" class="projects" (mouseenter)="pauseAutoRotate()" (mouseleave)="resumeAutoRotate()">
+  <div class="container">
+    <h2 class="section-title">Nuestros Servicios</h2>
+    <p class="section-subtitle">
+      Soluciones personalizadas para cada sector
+    </p>
+
+    
+    <div class="tabs">
+      <button 
+        *ngFor="let tab of tabs" 
+        class="tab-btn" 
+        [class.active]="activeTab === tab.id"
+        (click)="activeTab = tab.id">
+        {{ tab.nombre }}
+      </button>
+    </div>
+
+    
+    <div class="tab-content">
+      
+      <div *ngIf="activeTab === 'inmobiliarias'" class="cards-grid">
+        <div class="card" *ngFor="let servicio of services.inmobiliarias">
+          <div class="card-icon">
+            <mat-icon>{{ servicio.icono }}</mat-icon>
+          </div>
+          <h3>{{ servicio.titulo }}</h3>
+          <p>{{ servicio.descripcion }}</p>
+          <ul class="card-list">
+            <li *ngFor="let item of servicio.lista">{{ item }}</li>
+          </ul>
+        </div>
+      </div>
+
+      
+      <div *ngIf="activeTab === 'electricas'" class="cards-grid">
+        <div class="card" *ngFor="let servicio of services.electricas">
+          <div class="card-icon">
+            <mat-icon>{{ servicio.icono }}</mat-icon>
+          </div>
+          <h3>{{ servicio.titulo }}</h3>
+          <p>{{ servicio.descripcion }}</p>
+          <ul class="card-list">
+            <li *ngFor="let item of servicio.lista">{{ item }}</li>
+          </ul>
+        </div>
+      </div>
+
+      
+      <div *ngIf="activeTab === 'propietarios'" class="cards-grid">
+        <div class="card" *ngFor="let servicio of services.propietarios">
+          <div class="card-icon">
+            <mat-icon>{{ servicio.icono }}</mat-icon>
+          </div>
+          <h3>{{ servicio.titulo }}</h3>
+          <p>{{ servicio.descripcion }}</p>
+          <ul class="card-list">
+            <li *ngFor="let item of servicio.lista">{{ item }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="floating-contact" [class.hidden]="isFooterVisible" (click)="openContactPopup()">
+  <mat-icon>chat</mat-icon>
+  <span>Contacto</span>
+</div>
+
+<app-contact-popup #contactPopup></app-contact-popup>
+
+<div class="footer-cta" [class.visible]="isFooterVisible">
+  <div class="footer-cta-overlay"></div>
+  <div class="footer-cta-content">
+    <h3>Hagamos un impacto positivo juntos</h3>
+    <button mat-raised-button class="cta-button" (click)="openContactPopup()">
+      <mat-icon>chat</mat-icon>
+      Contáctanos
+    </button>
+    <p>Cuéntanos sobre tu proyecto y evaluaremos la mejor estrategia ambiental.</p>
+  </div>
+</div>
+
+<footer class="footer" #footerSection>
+  <div class="footer-content">
+    <div class="footer-logo">
+      <img src="assets/logos/logo-vertical.png" alt="RMA Forest">
+      <p>Soluciones ambientales a tu disposición.</p>
+    </div>
+
+    <div class="footer-location">
+      <h4>Ubicación</h4>
+      <p>
+        <mat-icon>location_on</mat-icon>
+        Los Militares #5620 oficina 1813<br>
+Las Condes, Santiago, Chile
+      </p>
+    </div>
+    <div class="footer-contact">
+      <h4>Contacto</h4>
+      <p class="contact-whatsapp">
+        <fa-icon [icon]="faWhatsapp" class="whatsapp-icon"></fa-icon>
+        <a href="https://wa.me/56932138910" target="_blank" rel="noopener noreferrer">
+          +56 9 3213 8910
+        </a>
+      </p>
+    </div>
+    <div class="footer-links">
+      <h4>Enlaces</h4>
+      <ul class="footer-links-list">
+        <li><a routerLink="/compliance" target="_blank">Canal de Denuncias</a></li>
+        <li><a routerLink="/policy" target="_blank">Política</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2026 RMA Forest. Todos los derechos reservados.</p>
+  </div>
+</footer>

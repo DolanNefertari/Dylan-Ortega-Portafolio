@@ -1,0 +1,34 @@
+<div class="login-container">
+  <div class="login-card">
+    <div class="login-header">
+      <mat-icon class="lock-icon">lock</mat-icon>
+      <h2>Panel de Administración</h2>
+      <p>Ingresa tus credenciales</p>
+    </div>
+
+    <form (ngSubmit)="onSubmit()" class="login-form">
+      <mat-form-field appearance="outline">
+        <mat-label>Usuario</mat-label>
+        <input matInput type="text" [(ngModel)]="username" name="username" required autocomplete="off">
+        <mat-icon matSuffix>person</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Contraseña</mat-label>
+        <input matInput type="password" [(ngModel)]="password" name="password" required autocomplete="off">
+        <mat-icon matSuffix>key</mat-icon>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit" [disabled]="loading">
+        <mat-icon *ngIf="!loading">login</mat-icon>
+        <span *ngIf="!loading">Ingresar</span>
+        <span *ngIf="loading">Verificando...</span>
+      </button>
+
+      <div *ngIf="error" class="error-message">
+        <mat-icon>error</mat-icon>
+        <span>Usuario o contraseña incorrectos</span>
+      </div>
+    </form>
+  </div>
+</div>

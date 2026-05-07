@@ -1,0 +1,97 @@
+<div class="complaints-container">
+<div class="watermark-logo desktop-logo">
+  <img src="assets/logos/logo-horizontal.png" alt="RMA Forest">
+</div>
+
+<div class="watermark-bg mobile-watermark"></div>
+    <div class="complaints-card">
+      <div class="complaints-header">
+        <mat-icon class="header-icon">report_problem</mat-icon>
+        <h2>Canal de Denuncias</h2>
+        <p>Este espacio es confidencial y seguro. Puedes realizar tu denuncia de forma anónima si lo prefieres.</p>
+      </div>
+
+      <form (ngSubmit)="onSubmit()" class="complaints-form">
+      <mat-form-field appearance="outline">
+        <mat-label>Asunto</mat-label>
+        <mat-select [(ngModel)]="form.subject" name="subject" required>
+          <mat-option *ngFor="let opt of subjectOptions" [value]="opt">
+            {{ opt }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline" *ngIf="form.subject === 'Otros'">
+        <mat-label>Especifique el asunto</mat-label>
+        <input matInput [(ngModel)]="form.subjectOther" name="subjectOther" required>
+        <mat-icon matSuffix>edit</mat-icon>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Relación con la empresa</mat-label>
+        <mat-select [(ngModel)]="form.relationship" name="relationship" required>
+          <mat-option *ngFor="let rel of relationshipOptions" [value]="rel">
+            {{ rel }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline" *ngIf="form.relationship === 'Otro'">
+        <mat-label>Especifique su Relacion</mat-label>
+        <input matInput [(ngModel)]="form.relationshipOther" name="relationshipOther" required>
+        <mat-icon matSuffix>edit</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Lugar de los hechos</mat-label>
+        <input matInput [(ngModel)]="form.location" name="location" placeholder="Ej: Oficina principal, sucursal, terreno, etc.">
+        <mat-icon matSuffix>place</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Fecha del incidente</mat-label>
+        <input matInput 
+        [matDatepicker]="picker" 
+        [(ngModel)]="form.incidentDate" 
+        name="incidentDate"
+        [max]="maxDatePicker"
+        (click)="picker.open()">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Persona objeto de la denuncia</mat-label>
+        <input matInput [(ngModel)]="form.accused" name="accused" placeholder="Nombres completos de la o las personas denunciadas">
+        <mat-icon matSuffix>person_outline</mat-icon>
+      </mat-form-field>
+  
+      <mat-form-field appearance="outline">
+        <mat-label>Detalle de la denuncia</mat-label>
+          <textarea matInput rows="6" [(ngModel)]="form.message" name="message" resize="none" required></textarea>
+        <mat-icon matSuffix>description</mat-icon>
+      </mat-form-field>
+  
+        <mat-checkbox [(ngModel)]="form.isAnonymous" name="isAnonymous">
+          Realizar denuncia de forma anónima
+        </mat-checkbox>
+  
+        <mat-form-field appearance="outline" *ngIf="!form.isAnonymous">
+          <mat-label>Nombre completo</mat-label>
+          <input matInput [(ngModel)]="form.name" type="text" name="name">
+          <mat-icon matSuffix>person</mat-icon>
+        </mat-form-field>
+  
+        <mat-form-field appearance="outline" *ngIf="!form.isAnonymous">
+          <mat-label>Email de contacto</mat-label>
+          <input matInput type="email" [(ngModel)]="form.email" name="email">
+          <mat-icon matSuffix>email</mat-icon>
+        </mat-form-field>
+  
+        <div class="form-actions">
+          <button mat-raised-button color="primary" type="submit" [disabled]="loading">
+            <mat-icon *ngIf="!loading">send</mat-icon>
+            <span *ngIf="!loading">Enviar denuncia</span>
+            <span *ngIf="loading">Enviando...</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
